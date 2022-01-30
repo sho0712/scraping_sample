@@ -30,11 +30,15 @@ def search_by_food(driver, food):
 def get_recipes(driver):
     recipe_previews = driver.find_elements(By.CLASS_NAME, "recipe-preview")
     # print(recipe_previews)
+
+    recipes = []
     for recipe_preview in recipe_previews:
         recipe_title = recipe_preview.find_element(By.CLASS_NAME, "recipe-title").text
         recipe_url = recipe_preview.find_element(By.CLASS_NAME, "recipe-title").get_attribute('href')
-
-        print(recipe_title, recipe_url)
+        recipes.append({
+            "title": recipe_title,
+            "url": recipe_url})
+    return recipes
 
 
 def main():
@@ -49,8 +53,22 @@ def main():
     # with の方法
     with webdriver.Chrome(options=chromedriver_options()) as driver:
         search_by_food(driver, food)
-        get_recipes(driver)
+        recipes = get_recipes(driver)
+
+        for recipe in recipes:
+            print(f"レシピ名 {recipe['title']}, URL:{recipe['url']}")
 
 
 if __name__ == '__main__':
     main()
+
+import time
+
+# 省略
+
+
+if __name__ == '__main__':
+    start = time.time()
+    main()
+    print(time.time() - start)
+   
