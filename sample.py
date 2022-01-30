@@ -16,7 +16,9 @@ def main():
     driver.get('https://google.com')
 
     driver.find_element(By.NAME, "q").send_keys(food)
+    driver.find_element(By.NAME, "q").send_keys(Keys.ENTER)
 
+    driver.implicitly_wait(60)
     time.sleep(10)
     driver.close()
 
